@@ -1,5 +1,4 @@
 import React from 'react';
-import { Facebook, Instagram, Youtube } from 'lucide-react';
 
 export const Footer: React.FC = () => {
   return (
@@ -13,14 +12,14 @@ export const Footer: React.FC = () => {
           </div>
 
           <div className="flex gap-4">
-            <a href="#" className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-primary transition-colors">
-              <Instagram className="w-5 h-5" />
+            <a href="#" className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-primary transition-colors text-xs font-bold">
+              IG
             </a>
-            <a href="#" className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-primary transition-colors">
-              <Facebook className="w-5 h-5" />
+            <a href="#" className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-primary transition-colors text-xs font-bold">
+              FB
             </a>
-            <a href="#" className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-primary transition-colors">
-              <Youtube className="w-5 h-5" />
+            <a href="#" className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-primary transition-colors text-xs font-bold">
+              YT
             </a>
           </div>
 
