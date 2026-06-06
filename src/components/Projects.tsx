@@ -7,6 +7,14 @@ import { X, Image as ImageIcon, Video, ArrowRight, PlusCircle } from 'lucide-rea
 import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from './ui/Button';
 
+// Helper function to resolve media paths against Vite's BASE_URL
+const getMediaUrl = (path: string | null) => {
+  if (!path) return '';
+  if (path.startsWith('http')) return path;
+  const cleanPath = path.startsWith('/') ? path.slice(1) : path;
+  return `${import.meta.env.BASE_URL}${cleanPath}`;
+};
+
 type ProjectDetails = {
   feito: string;
   acao: string;
@@ -30,9 +38,9 @@ const projects: Project[] = [
     tag: 'Infraestrutura',
     title: 'Poço Artesiano em Tamboril',
     summary: 'Inauguração e entrega de um novo poço artesiano na comunidade Corrente dos Matões.',
-    image: '/media/tamboril-1.jpg',
-    gallery: ['/media/tamboril-1.jpg', '/media/tamboril-2.jpg'],
-    video: '/media/tamboril.mp4',
+    image: 'media/tamboril-1.jpg',
+    gallery: ['media/tamboril-1.jpg', 'media/tamboril-2.jpg'],
+    video: 'media/tamboril.mp4',
     details: {
       feito: 'Inauguração e entrega de um novo poço artesiano na comunidade Corrente dos Matões, na localidade de Tamboril.',
       acao: 'Cumprindo o compromisso de ouvir a população nas suas visitas às comunidades, o vereador Canela articulou a perfuração do poço em parceria com o deputado Georgiano e o Dr. Lucas.',
@@ -44,9 +52,9 @@ const projects: Project[] = [
     tag: 'Segurança Viária',
     title: 'Melhorias na BR-135',
     summary: 'Manutenção e melhoria na segurança da rodovia BR-135, em trechos críticos.',
-    image: '/media/br-1.jpg',
-    gallery: ['/media/br-1.jpg', '/media/br-2.jpg'],
-    video: '/media/br.mp4',
+    image: 'media/br-1.jpg',
+    gallery: ['media/br-1.jpg', 'media/br-2.jpg'],
+    video: 'media/br.mp4',
     details: {
       feito: 'Manutenção e melhoria na segurança da rodovia BR-135, focando em trechos críticos que registravam alto índice de acidentes por desnível na pista (como a "Curva do Belinho" e a "Curva das Melancias", entre Bom Jesus e Cristino Castro).',
       acao: 'O vereador Canela esteve no local dos acidentes, fez cobranças ativas e apresentou requerimentos diretamente em Teresina junto ao superintendente do DNIT (Departamento Nacional de Infraestrutura de Transportes).',
@@ -58,9 +66,9 @@ const projects: Project[] = [
     tag: 'Recursos Hídricos',
     title: 'Poço Artesiano em Tapuitama',
     summary: 'Inauguração e entrega de poço artesiano para atender a comunidade de Tapuitama.',
-    image: '/media/tapuitama-1.jpg',
-    gallery: ['/media/tapuitama-1.jpg', '/media/tapuitama-2.jpg'],
-    video: '/media/tapuitama.mp4',
+    image: 'media/tapuitama-1.jpg',
+    gallery: ['media/tapuitama-1.jpg', 'media/tapuitama-2.jpg'],
+    video: 'media/tapuitama.mp4',
     details: {
       feito: 'Inauguração e entrega de mais um poço artesiano, desta vez focado em atender a comunidade de Tapuitama.',
       acao: 'Cumprindo a sua promessa de ouvir as necessidades da população de perto, o vereador Canela acolheu o pedido dos moradores locais (como o Sr. Dorim e a Dona Irene) e articulou a execução do projeto junto a parceiros políticos, como o deputado Georgiano Neto.',
@@ -206,7 +214,7 @@ export const Projects: React.FC = () => {
             <SwiperSlide key={project.id} className="h-auto">
               <div className="flex flex-col h-full bg-background rounded-3xl overflow-hidden shadow-lg border border-border/50 transition-shadow">
                 <div className="relative h-56 w-full shrink-0 bg-black/5">
-                  <img src={project.image} alt={project.title} className="absolute inset-0 w-full h-full object-cover" />
+                  <img src={getMediaUrl(project.image)} alt={project.title} className="absolute inset-0 w-full h-full object-cover" />
                   <div className="absolute top-3 left-3 bg-secondary text-white text-xs font-bold px-3 py-1 rounded-full shadow-md z-10">
                     {project.tag}
                   </div>
@@ -280,7 +288,7 @@ export const Projects: React.FC = () => {
                 {projects.map(project => (
                   <div key={project.id} className="bg-background rounded-3xl overflow-hidden shadow-md border border-border/50 flex flex-col sm:flex-row h-full">
                     <div className="relative h-48 sm:h-full sm:w-2/5 shrink-0">
-                      <img src={project.image} alt={project.title} className="absolute inset-0 w-full h-full object-cover" />
+                      <img src={getMediaUrl(project.image)} alt={project.title} className="absolute inset-0 w-full h-full object-cover" />
                       <div className="absolute top-2 left-2 sm:hidden bg-secondary text-white text-[10px] uppercase font-bold px-2 py-1 rounded shadow-md z-10">
                         {project.tag}
                       </div>
@@ -332,7 +340,7 @@ export const Projects: React.FC = () => {
             </div>
 
             <div className="relative w-full h-72 sm:h-96">
-              <img src={selectedProject.image} alt={selectedProject.title} className="w-full h-full object-cover" />
+              <img src={getMediaUrl(selectedProject.image)} alt={selectedProject.title} className="w-full h-full object-cover" />
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
               <div className="absolute bottom-6 left-4 right-4 max-w-3xl mx-auto">
                 <div className="bg-secondary inline-block text-white text-xs font-bold px-3 py-1 rounded-full mb-3 shadow-sm">
@@ -387,7 +395,7 @@ export const Projects: React.FC = () => {
                         className="aspect-square bg-surface rounded-2xl overflow-hidden border border-border relative cursor-pointer group shadow-sm hover:shadow-md transition-all"
                       >
                         <img 
-                          src={img} 
+                          src={getMediaUrl(img)} 
                           alt={`Miniatura Galeria ${idx+1}`} 
                           className="w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-opacity group-hover:scale-105 duration-300" 
                         />
@@ -410,7 +418,7 @@ export const Projects: React.FC = () => {
                   {/* Changed to natural height layout */}
                   <div className="w-full bg-black rounded-2xl overflow-hidden shadow-md border border-border flex items-center justify-center">
                     <video 
-                      src={selectedProject.video} 
+                      src={getMediaUrl(selectedProject.video)} 
                       controls 
                       className="w-full h-auto max-h-[80vh] cursor-pointer" 
                       controlsList="nodownload"
@@ -487,7 +495,7 @@ export const Projects: React.FC = () => {
                   <SwiperSlide key={idx} className="flex items-center justify-center w-full h-full">
                     <div className="w-full h-full p-4 flex items-center justify-center">
                       <img 
-                        src={img} 
+                        src={getMediaUrl(img)} 
                         alt={`Visualização ${idx+1}`} 
                         className="max-w-full max-h-screen object-contain drop-shadow-2xl" 
                       />

@@ -10,7 +10,7 @@ export const Hero: React.FC = () => {
       <div 
         className="absolute inset-0 z-0 bg-cover bg-[center_top]"
         style={{ 
-          backgroundImage: 'url("/media/capa.jpg")',
+          backgroundImage: `url("${import.meta.env.BASE_URL}media/capa.jpg")`,
         }}
       >
         {/* Dark linear gradient overlay pushed only to the bottom half so the face is clearly visible */}

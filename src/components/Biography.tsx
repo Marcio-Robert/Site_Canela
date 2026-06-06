@@ -44,7 +44,7 @@ export const Biography: React.FC = () => {
           <div className="w-20 h-1 bg-secondary mx-auto rounded-full mb-6" />
           
           <img 
-            src="/media/capa_projetos.jpg" 
+            src={`${import.meta.env.BASE_URL}media/capa_projetos.jpg`} 
             alt="Vereador Canela com o povo" 
             className="w-full h-56 object-cover rounded-2xl shadow-lg mb-6"
           />
