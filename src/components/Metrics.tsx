@@ -1,21 +1,30 @@
 import React from 'react';
 import { Calendar, FileText, MapPin, Heart } from 'lucide-react';
+import type { LucideIcon } from 'lucide-react';
 import { motion } from 'framer-motion';
 
-const metrics = [
-  { icon: Calendar, value: '2+', label: 'Anos de Mandato' },
-  { icon: FileText, value: '25+', label: 'Projetos e Indicações' },
-  { icon: MapPin, value: '18+', label: 'Comunidades Atendidas' },
-  { icon: Heart, value: '100%', label: 'Dedicação' },
-];
+const iconMap: Record<string, LucideIcon> = {
+  Calendar,
+  FileText,
+  MapPin,
+  Heart
+};
 
-export const Metrics: React.FC = () => {
+interface MetricsProps {
+  data: Array<{
+    iconName: string;
+    value: string;
+    label: string;
+  }>;
+}
+
+export const Metrics: React.FC<MetricsProps> = ({ data }) => {
   return (
-    <section className="py-12 bg-surface">
+    <section className="py-8 bg-surface">
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          {metrics.map((metric, index) => {
-            const Icon = metric.icon;
+          {data.map((metric, index) => {
+            const Icon = iconMap[metric.iconName] || Heart;
             return (
               <motion.div
                 key={index}
