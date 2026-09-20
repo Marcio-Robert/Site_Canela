@@ -1,12 +1,9 @@
 import React, { useState } from 'react';
-import { Menu, MessageCircle, X } from 'lucide-react';
-import { Button } from './ui/Button';
+import { Menu, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 export const Header: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-
-  const whatsappLink = "https://wa.me/5589999999999?text=Olá,%20gostaria%20de%20falar%20com%20a%20equipe%20do%20Vereador%20Canela!";
 
   const scrollTo = (id: string) => {
     setIsMenuOpen(false);
@@ -19,52 +16,35 @@ export const Header: React.FC = () => {
   const navLinks = [
     { name: 'Início', id: 'inicio' },
     { name: 'Minha História', id: 'historia' },
-    { name: 'Projetos', id: 'projetos' },
-    { name: 'Gabinete Aberto', id: 'contato' },
+    { name: 'Propostas', id: 'propostas' },
+    { name: 'Obras Realizadas', id: 'obras' },
+    { name: 'Agenda', id: 'agenda' },
   ];
 
   return (
     <>
       <header className="fixed top-0 left-0 right-0 z-50 bg-surface/90 backdrop-blur-md border-b border-border shadow-sm">
         <div className="container mx-auto px-4 h-16 flex items-center justify-between">
-          {/* Logo / Name */}
+          {/* Left: Logo / Name */}
           <button 
             onClick={() => scrollTo('inicio')}
-            className="flex items-center gap-2 focus:outline-none"
+            className="flex flex-col items-center leading-none focus:outline-none"
           >
-            <span className="font-heading font-black text-xl text-primary-dark tracking-tight">
-              CANELA
-            </span>
+            <span className="font-heading font-black text-2xl text-primary-dark tracking-tight leading-none">CANELA</span>
+            <span className="font-heading font-black text-2xl text-secondary tracking-wider mt-0.5">55888</span>
           </button>
 
-          {/* Desktop Nav (hidden on mobile, but keeping for scaling if needed later) */}
-          <nav className="hidden md:flex gap-6 items-center absolute left-1/2 -translate-x-1/2">
-            {navLinks.map((link) => (
-              <button 
-                key={link.id} 
-                onClick={() => scrollTo(link.id)}
-                className="text-sm font-semibold text-foreground/70 hover:text-primary transition-colors"
-              >
-                {link.name}
-              </button>
-            ))}
-          </nav>
+          {/* Center: Title */}
+          <div className="flex flex-col items-center justify-center text-center leading-tight mx-2">
+            <span className="text-[11px] sm:text-sm md:text-base font-black text-secondary [-webkit-text-stroke:_0.5px_currentColor]">CANDIDATO A DEPUTADO ESTADUAL</span>
+            <span className="text-[11px] sm:text-sm md:text-base font-black text-primary-dark mt-0.5 [-webkit-text-stroke:_0.5px_currentColor]">PELO PSD</span>
+          </div>
 
           {/* Right Actions */}
-          <div className="flex items-center gap-3">
-            <a href={whatsappLink} target="_blank" rel="noopener noreferrer">
-              <Button variant="primary" size="sm" className="hidden sm:flex rounded-full px-4 bg-green-600 hover:bg-green-700">
-                <MessageCircle className="w-4 h-4 mr-2" />
-                WhatsApp
-              </Button>
-              <Button variant="primary" size="sm" className="sm:hidden w-10 h-10 p-0 rounded-full bg-green-600 hover:bg-green-700">
-                <MessageCircle className="w-5 h-5" />
-              </Button>
-            </a>
-            
+          <div className="flex items-center shrink-0">
             <button 
               onClick={() => setIsMenuOpen(true)}
-              className="p-2 text-foreground hover:bg-black/5 rounded-full transition-colors md:hidden"
+              className="p-2 text-foreground hover:bg-black/5 rounded-full transition-colors"
             >
               <Menu className="w-6 h-6" />
             </button>
@@ -103,15 +83,6 @@ export const Header: React.FC = () => {
                   {link.name}
                 </button>
               ))}
-              
-              <div className="w-16 h-1 bg-primary/20 rounded-full my-4" />
-              
-              <button 
-                onClick={() => scrollTo('mobilize')}
-                className="text-xl font-bold text-secondary"
-              >
-                Fazer Parte da Equipe
-              </button>
             </div>
           </motion.div>
         )}

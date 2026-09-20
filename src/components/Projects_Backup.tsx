@@ -3,7 +3,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/navigation';
-import { X, Image as ImageIcon, Video, ArrowRight, PlusCircle, ChevronLeft, ChevronRight } from 'lucide-react';
+import { X, Image as ImageIcon, Video, ArrowRight, PlusCircle } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from './ui/Button';
 
@@ -77,17 +77,29 @@ const projects: Project[] = [
   },
   {
     id: 4,
-    tag: 'Diversos',
-    title: 'Outras Obras',
-    summary: 'Construção de bueiros, reformas e atuações diversas pelo bem da população.',
-    image: 'media/outras_obras.png',
-    gallery: [],
+    tag: 'Esporte e Juventude',
+    title: 'Esporte Resgata',
+    summary: 'Incentivo ao esporte amador e revitalização de quadras.',
+    image: 'https://images.unsplash.com/photo-1526232761682-d26e03ac148e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+    gallery: [
+      'https://images.unsplash.com/photo-1526232761682-d26e03ac148e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+      'https://images.unsplash.com/photo-1541872526131-ab19f71c4ac7?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80'
+    ],
     video: null,
-    details: {
-      feito: 'Construção do Bueiro no riacho e outras pequenas reformas de infraestrutura local e melhorias.',
-      acao: 'Acompanhamento contínuo dos problemas reais enfrentados pelas comunidades do interior, protocolando pedidos diretos aos órgãos responsáveis e acompanhando a execução.',
-      resultado: 'Melhoria na mobilidade rural, escoamento seguro de águas no período de chuvas e mais qualidade de vida e segurança no trânsito para a população das zonas afastadas.'
-    }
+    details: 'Acreditamos que o esporte é a principal ferramenta para afastar nossos jovens das drogas. Destinamos recursos para campeonatos amadores locais e cobramos a reforma de três quadras poliesportivas que estavam abandonadas, devolvendo o lazer para as comunidades.'
+  },
+  {
+    id: 5,
+    tag: 'Empreendedorismo',
+    title: 'Empreende Mulher',
+    summary: 'Capacitação e fomento para mulheres chefes de família.',
+    image: 'https://images.unsplash.com/photo-1573164713988-8665fc963095?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+    gallery: [
+      'https://images.unsplash.com/photo-1573164713988-8665fc963095?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+      'https://images.unsplash.com/photo-1573164136489-28c701460398?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'
+    ],
+    video: null,
+    details: 'Criamos um programa de apoio focando em mulheres que sustentam sozinhas seus lares. Em parceria com instituições técnicas, oferecemos cursos profissionalizantes e orientamos sobre o acesso a microcrédito. Hoje, dezenas de mulheres já abriram seus próprios negócios.'
   }
 ];
 
@@ -158,53 +170,36 @@ export const Projects: React.FC = () => {
     window.history.back();
   };
 
-  const selectedIndex = selectedProject ? projects.findIndex(p => p.id === selectedProject.id) : null;
-
-  const goNext = () => {
-    if (selectedIndex !== null && selectedIndex < projects.length - 1) {
-      setSelectedProject(projects[selectedIndex + 1]);
+  const handleMobilize = () => {
+    setSelectedProject(null);
+    window.history.back();
+    if (isAllProjectsOpen) {
+      setIsAllProjectsOpen(false);
+      setTimeout(() => window.history.back(), 10);
     }
-  };
-
-  const goPrev = () => {
-    if (selectedIndex !== null && selectedIndex > 0) {
-      setSelectedProject(projects[selectedIndex - 1]);
-    }
+    setTimeout(() => document.getElementById('mobilize')?.scrollIntoView({ behavior: 'smooth' }), 300);
   };
 
   const featuredProjects = projects.slice(0, 3);
 
   return (
-    <section id="obras" className="py-10 bg-surface overflow-hidden border-t border-border">
+    <section id="projetos" className="py-10 bg-surface overflow-hidden border-t border-border">
       <div className="container mx-auto px-4">
-        <motion.div
-          initial={{ opacity: 0, x: -20 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.5 }}
-        >
-          <h2 className="text-3xl font-heading font-bold text-foreground mb-2 text-center">
-            Obras Realizadas
-          </h2>
+        <h2 className="text-3xl font-heading font-bold text-foreground mb-2 text-center">
+          Projetos e Ações
+        </h2>
         
-          <div className="flex items-center justify-center gap-2 text-foreground/60 mb-6 font-medium text-sm">
-            <span>Arraste para o lado para ver mais</span>
-            <motion.div 
-              animate={{ x: [0, 5, 0] }} 
-              transition={{ repeat: Infinity, duration: 1.5, ease: "easeInOut" }}
-            >
-              <ArrowRight className="w-4 h-4 text-primary" />
-            </motion.div>
-          </div>
-        </motion.div>
+        <div className="flex items-center justify-center gap-2 text-foreground/60 mb-6 font-medium text-sm">
+          <span>Arraste para o lado para ver mais</span>
+          <motion.div 
+            animate={{ x: [0, 5, 0] }} 
+            transition={{ repeat: Infinity, duration: 1.5, ease: "easeInOut" }}
+          >
+            <ArrowRight className="w-4 h-4 text-primary" />
+          </motion.div>
+        </div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-        >
-          <Swiper
+        <Swiper
           modules={[]}
           spaceBetween={16}
           slidesPerView={1.15}
@@ -248,23 +243,22 @@ export const Projects: React.FC = () => {
               <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center shadow-md mb-4 group-hover:scale-110 transition-transform">
                 <PlusCircle className="w-8 h-8 text-primary" />
               </div>
-              <h3 className="text-xl font-bold font-heading text-primary-dark mb-2">Ver Todas as Obras</h3>
-              <p className="text-sm text-foreground/70">Conheça algumas de nossas obras já concluídas.</p>
+              <h3 className="text-xl font-bold font-heading text-primary-dark mb-2">Ver Todos os Projetos</h3>
+              <p className="text-sm text-foreground/70">Conheça todas as nossas {projects.length} ações e bandeiras.</p>
             </div>
           </SwiperSlide>
         </Swiper>
 
-          <div className="mt-8 flex justify-center">
-            <Button 
-              variant="outline" 
-              size="lg"
-              className="w-full sm:w-auto border-primary/20 text-primary-dark hover:bg-primary/5"
-              onClick={() => setIsAllProjectsOpen(true)}
-            >
-              Visualizar Todas as Obras
-            </Button>
-          </div>
-        </motion.div>
+        <div className="mt-8 flex justify-center">
+          <Button 
+            variant="outline" 
+            size="lg"
+            className="w-full sm:w-auto border-primary/20 text-primary-dark hover:bg-primary/5"
+            onClick={() => setIsAllProjectsOpen(true)}
+          >
+            Visualizar Todas as Ações
+          </Button>
+        </div>
       </div>
 
       {/* Modal: All Projects List */}
@@ -279,7 +273,7 @@ export const Projects: React.FC = () => {
           >
             <div className="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-border px-4 py-4 flex items-center justify-between shadow-sm">
               <span className="font-heading font-black text-xl text-primary-dark">
-                Todas as Obras
+                Todas as Ações
               </span>
               <button 
                 onClick={closeAllProjects}
@@ -311,7 +305,7 @@ export const Projects: React.FC = () => {
                         className="w-full bg-primary/10 hover:bg-primary/20 text-primary-dark font-bold text-sm py-3 rounded-xl transition-colors mt-auto"
                         onClick={() => setSelectedProject(project)}
                       >
-                        Ver Detalhes
+                        Ler Completo
                       </button>
                     </div>
                   </div>
@@ -376,7 +370,7 @@ export const Projects: React.FC = () => {
                       <p className="text-base text-foreground/80 leading-relaxed">{selectedProject.details.feito}</p>
                     </div>
                     <div>
-                      <strong className="text-primary-dark text-lg mb-1 block">Ação do Candidato:</strong>
+                      <strong className="text-primary-dark text-lg mb-1 block">Ação do Vereador:</strong>
                       <p className="text-base text-foreground/80 leading-relaxed">{selectedProject.details.acao}</p>
                     </div>
                     <div>
@@ -421,6 +415,7 @@ export const Projects: React.FC = () => {
                     Registro Audiovisual
                   </h3>
                   
+                  {/* Changed to natural height layout */}
                   <div className="w-full bg-black rounded-2xl overflow-hidden shadow-md border border-border flex items-center justify-center">
                     <video 
                       src={getMediaUrl(selectedProject.video)} 
@@ -434,6 +429,7 @@ export const Projects: React.FC = () => {
                         const rect = video.getBoundingClientRect();
                         const clickY = e.clientY - rect.top;
                         
+                        // Ignorar o clique se for na área inferior (15% da base), onde ficam os controles nativos
                         if (clickY > rect.height * 0.85) return;
 
                         if (video.paused) {
@@ -447,32 +443,13 @@ export const Projects: React.FC = () => {
                 </div>
               )}
 
-              {/* Navigation Buttons */}
-              <div className="flex justify-between items-center mt-12 pt-6 border-t border-border">
-                <button
-                  onClick={goPrev}
-                  disabled={selectedIndex === 0}
-                  className={`flex items-center gap-2 px-4 py-2 rounded-xl transition-colors ${
-                    selectedIndex === 0 ? 'opacity-50 cursor-not-allowed text-foreground/50 bg-surface' : 'text-primary hover:bg-primary/10'
-                  }`}
+              <div className="bg-surface border border-border p-6 rounded-3xl text-center mb-8">
+                <h4 className="font-bold text-lg mb-4 text-foreground">Quer levar essa ação para seu bairro?</h4>
+                <button 
+                  className="w-full bg-secondary hover:bg-secondary-dark text-white font-bold rounded-xl py-4 transition-colors"
+                  onClick={handleMobilize}
                 >
-                  <ChevronLeft className="w-5 h-5" />
-                  <span className="font-bold hidden sm:inline">Anterior</span>
-                </button>
-
-                <div className="text-sm text-foreground/50 font-bold">
-                  {selectedIndex !== null ? selectedIndex + 1 : 0} / {projects.length}
-                </div>
-
-                <button
-                  onClick={goNext}
-                  disabled={selectedIndex === projects.length - 1}
-                  className={`flex items-center gap-2 px-4 py-2 rounded-xl transition-colors ${
-                    selectedIndex === projects.length - 1 ? 'opacity-50 cursor-not-allowed text-foreground/50 bg-surface' : 'text-primary hover:bg-primary/10'
-                  }`}
-                >
-                  <span className="font-bold hidden sm:inline">Próxima</span>
-                  <ChevronRight className="w-5 h-5" />
+                  Mobilizar minha comunidade
                 </button>
               </div>
 
