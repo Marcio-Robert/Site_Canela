@@ -3,7 +3,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/navigation';
-import { X, Image as ImageIcon, Video, ArrowRight, PlusCircle, ChevronLeft, ChevronRight, Play } from 'lucide-react';
+import { X, Image as ImageIcon, Video, ArrowRight, PlusCircle, ChevronLeft, ChevronRight } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from './ui/Button';
 
@@ -90,56 +90,6 @@ const projects: Project[] = [
     }
   }
 ];
-
-const VideoPlayer: React.FC<{ src: string }> = ({ src }) => {
-  const [isPlaying, setIsPlaying] = useState(false);
-  const videoRef = React.useRef<HTMLVideoElement>(null);
-
-  const togglePlay = () => {
-    if (videoRef.current) {
-      if (videoRef.current.paused) {
-        videoRef.current.play();
-      } else {
-        videoRef.current.pause();
-      }
-    }
-  };
-
-  return (
-    <div className="relative w-full bg-black rounded-2xl overflow-hidden shadow-md border border-border flex items-center justify-center group">
-      <video 
-        ref={videoRef}
-        src={src} 
-        controls 
-        className="w-full h-auto max-h-[80vh] cursor-pointer" 
-        controlsList="nodownload"
-        playsInline
-        preload="metadata"
-        onPlay={() => setIsPlaying(true)}
-        onPause={() => setIsPlaying(false)}
-        onEnded={() => setIsPlaying(false)}
-        onClick={(e) => {
-          // Allow native controls to be clicked without toggling
-          const rect = e.currentTarget.getBoundingClientRect();
-          const clickY = e.clientY - rect.top;
-          if (clickY > rect.height * 0.85) return;
-          togglePlay();
-        }}
-      />
-      {!isPlaying && (
-        <div 
-          className="absolute inset-0 flex items-center justify-center bg-black/20 cursor-pointer transition-colors hover:bg-black/30"
-          onClick={togglePlay}
-          style={{ height: '85%' }} // Don't cover bottom controls
-        >
-          <div className="w-16 h-16 sm:w-20 sm:h-20 bg-primary/90 text-white rounded-full flex items-center justify-center pl-1 sm:pl-2 shadow-xl hover:scale-110 transition-transform backdrop-blur-sm">
-            <Play className="w-8 h-8 sm:w-10 sm:h-10 fill-current" />
-          </div>
-        </div>
-      )}
-    </div>
-  );
-};
 
 export const Projects: React.FC = () => {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
@@ -473,7 +423,29 @@ export const Projects: React.FC = () => {
                   
                   <div className="flex flex-col gap-6">
                     {(Array.isArray(selectedProject.video) ? selectedProject.video : [selectedProject.video]).map((vidSrc, idx) => (
-                      <VideoPlayer key={idx} src={getMediaUrl(vidSrc)} />
+                      <div key={idx} className="w-full bg-black rounded-2xl overflow-hidden shadow-md border border-border flex items-center justify-center">
+                        <video 
+                          src={getMediaUrl(vidSrc)} 
+                          controls 
+                          className="w-full h-auto max-h-[80vh] cursor-pointer" 
+                          controlsList="nodownload"
+                          playsInline
+                          preload="metadata"
+                          onClick={(e) => {
+                            const video = e.currentTarget;
+                            const rect = video.getBoundingClientRect();
+                            const clickY = e.clientY - rect.top;
+                            
+                            if (clickY > rect.height * 0.85) return;
+
+                            if (video.paused) {
+                              video.play();
+                            } else {
+                              video.pause();
+                            }
+                          }}
+                        />
+                      </div>
                     ))}
                   </div>
                 </div>
