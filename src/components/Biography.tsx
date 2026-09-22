@@ -102,7 +102,7 @@ export const Biography: React.FC = () => {
 
                 <h3 className="text-2xl font-bold font-heading text-primary-dark mb-4">Família</h3>
                 <p className="text-lg text-foreground/80 leading-relaxed mb-8">
-                  Sou orgulhoso pai de Wellington, Werveson, William (in memoriam) e Saulo, e avô amoroso de Maria Helena e Lorena Maria. A família é a base de tudo que faço e o que me motiva a lutar todos os dias por um futuro mais digno para todas as famílias piauienses.
+                  Sou orgulhoso pai de Wellington, Werveson, Wilian (in memoriam) e Saulo, e avô amoroso de Maria Helena e Lorena Maria. A família é a base de tudo que faço e o que me motiva a lutar todos os dias por um futuro mais digno para todas as famílias piauienses.
                 </p>
 
                 <h3 className="text-2xl font-bold font-heading text-primary-dark mb-4">A Vida Pública</h3>

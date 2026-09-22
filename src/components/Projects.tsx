@@ -28,7 +28,7 @@ type Project = {
   summary: string;
   image: string;
   gallery: string[];
-  video: string | null;
+  video: string | string[] | null;
   details: ProjectDetails | string;
 };
 
@@ -40,7 +40,7 @@ const projects: Project[] = [
     summary: 'Inauguração e entrega de um novo poço artesiano na comunidade Corrente dos Matões.',
     image: 'media/tamboril-1.jpg',
     gallery: ['media/tamboril-1.jpg', 'media/tamboril-2.jpg'],
-    video: 'media/tamboril.mp4',
+    video: ['media/tamboril.mp4', 'media/tamboril2.mp4'],
     details: {
       feito: 'Inauguração e entrega de um novo poço artesiano na comunidade Corrente dos Matões, na localidade de Tamboril.',
       acao: 'Cumprindo o compromisso de ouvir a população nas suas visitas às comunidades, o vereador Canela articulou a perfuração do poço em parceria com o deputado Georgiano e o Dr. Lucas.',
@@ -77,16 +77,16 @@ const projects: Project[] = [
   },
   {
     id: 4,
-    tag: 'Diversos',
-    title: 'Outras Obras',
-    summary: 'Construção de bueiros, reformas e atuações diversas pelo bem da população.',
+    tag: 'Infraestrutura',
+    title: 'Bueiros no Riacho',
+    summary: 'Construção de bueiros de extrema importância na comunidade Riacho, um sonho de mais de 50 anos.',
     image: 'media/outras_obras.png',
     gallery: [],
-    video: null,
+    video: ['media/bueiro_riacho.mp4', 'media/bueiro_riacho2.mp4'],
     details: {
-      feito: 'Construção do Bueiro no riacho e outras pequenas reformas de infraestrutura local e melhorias.',
-      acao: 'Acompanhamento contínuo dos problemas reais enfrentados pelas comunidades do interior, protocolando pedidos diretos aos órgãos responsáveis e acompanhando a execução.',
-      resultado: 'Melhoria na mobilidade rural, escoamento seguro de águas no período de chuvas e mais qualidade de vida e segurança no trânsito para a população das zonas afastadas.'
+      feito: 'Construção de 2 bueiros de extrema necessidade no povoado Riacho, garantindo a acessibilidade e o tráfego seguro da população.',
+      acao: 'Atendendo ao pedido dos moradores, o vereador Canela fez um apelo ao prefeito e apresentou os requerimentos. Mostrando que uma oposição responsável, pautada no diálogo, colabora com a gestão pública para trazer melhorias reais.',
+      resultado: 'Realização de um sonho de mais de 50 anos da comunidade! A obra resolveu de forma definitiva o problema do período chuvoso (quando a água acumulava e tornava o acesso inviável), levando infraestrutura e qualidade de vida para todos.'
     }
   }
 ];
@@ -418,31 +418,35 @@ export const Projects: React.FC = () => {
                 <div className="mb-12">
                   <h3 className="text-xl font-bold mb-4 text-foreground flex items-center gap-2">
                     <Video className="w-5 h-5 text-primary" />
-                    Registro Audiovisual
+                    {Array.isArray(selectedProject.video) && selectedProject.video.length > 1 ? 'Registros Audiovisuais' : 'Registro Audiovisual'}
                   </h3>
                   
-                  <div className="w-full bg-black rounded-2xl overflow-hidden shadow-md border border-border flex items-center justify-center">
-                    <video 
-                      src={getMediaUrl(selectedProject.video)} 
-                      controls 
-                      className="w-full h-auto max-h-[80vh] cursor-pointer" 
-                      controlsList="nodownload"
-                      playsInline
-                      preload="metadata"
-                      onClick={(e) => {
-                        const video = e.currentTarget;
-                        const rect = video.getBoundingClientRect();
-                        const clickY = e.clientY - rect.top;
-                        
-                        if (clickY > rect.height * 0.85) return;
+                  <div className="flex flex-col gap-6">
+                    {(Array.isArray(selectedProject.video) ? selectedProject.video : [selectedProject.video]).map((vidSrc, idx) => (
+                      <div key={idx} className="w-full bg-black rounded-2xl overflow-hidden shadow-md border border-border flex items-center justify-center">
+                        <video 
+                          src={getMediaUrl(vidSrc)} 
+                          controls 
+                          className="w-full h-auto max-h-[80vh] cursor-pointer" 
+                          controlsList="nodownload"
+                          playsInline
+                          preload="metadata"
+                          onClick={(e) => {
+                            const video = e.currentTarget;
+                            const rect = video.getBoundingClientRect();
+                            const clickY = e.clientY - rect.top;
+                            
+                            if (clickY > rect.height * 0.85) return;
 
-                        if (video.paused) {
-                          video.play();
-                        } else {
-                          video.pause();
-                        }
-                      }}
-                    />
+                            if (video.paused) {
+                              video.play();
+                            } else {
+                              video.pause();
+                            }
+                          }}
+                        />
+                      </div>
+                    ))}
                   </div>
                 </div>
               )}
