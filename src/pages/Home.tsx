@@ -4,6 +4,7 @@ import { Biography } from '../components/Biography';
 import { Proposals } from '../components/Proposals';
 import { Projects } from '../components/Projects';
 import { Agenda } from '../components/Agenda';
+import { MaterialCTA } from '../components/MaterialCTA';
 
 export const Home: React.FC = () => {
   return (
@@ -13,6 +14,7 @@ export const Home: React.FC = () => {
       <Proposals />
       <Projects />
       <Agenda />
+      <MaterialCTA />
     </main>
   );
 };
