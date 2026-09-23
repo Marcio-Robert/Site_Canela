@@ -1,28 +1,23 @@
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Header } from './components/Header';
-import { Hero } from './components/Hero';
-import { Biography } from './components/Biography';
-import { Proposals } from './components/Proposals';
-import { Projects } from './components/Projects';
-import { Agenda } from './components/Agenda';
 import { Footer } from './components/Footer';
-
-// Agenda gerencia seu próprio state diretamente de forma dinâmica.
+import { Home } from './pages/Home';
+import { Material } from './pages/Material';
 
 function App() {
   return (
-    <div className="min-h-screen bg-background font-sans text-foreground">
-      <Header />
-      
-      <main>
-        <Hero />
-        <Biography />
-        <Proposals />
-        <Projects />
-        <Agenda />
-      </main>
+    <Router>
+      <div className="min-h-screen bg-background font-sans text-foreground">
+        <Header />
+        
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/material" element={<Material />} />
+        </Routes>
 
-      <Footer />
-    </div>
+        <Footer />
+      </div>
+    </Router>
   );
 }
 

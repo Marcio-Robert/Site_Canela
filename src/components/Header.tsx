@@ -1,24 +1,46 @@
 import React, { useState } from 'react';
 import { Menu, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 export const Header: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const location = useLocation();
+  const navigate = useNavigate();
 
-  const scrollTo = (id: string) => {
+  const handleNavClick = (id: string, isRoute: boolean = false) => {
     setIsMenuOpen(false);
-    const element = document.getElementById(id);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+    
+    if (isRoute) {
+      navigate(`/${id}`);
+      window.scrollTo(0, 0);
+      return;
+    }
+
+    if (location.pathname !== '/') {
+      navigate('/');
+      // Wait for React to render the home page before scrolling
+      setTimeout(() => {
+        const element = document.getElementById(id);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 100);
+    } else {
+      const element = document.getElementById(id);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
     }
   };
 
   const navLinks = [
-    { name: 'Início', id: 'inicio' },
-    { name: 'Minha História', id: 'historia' },
-    { name: 'Propostas', id: 'propostas' },
-    { name: 'Obras Realizadas', id: 'obras' },
-    { name: 'Agenda', id: 'agenda' },
+    { name: 'Início', id: 'inicio', isRoute: false },
+    { name: 'Minha História', id: 'historia', isRoute: false },
+    { name: 'Propostas', id: 'propostas', isRoute: false },
+    { name: 'Obras Realizadas', id: 'obras', isRoute: false },
+    { name: 'Agenda', id: 'agenda', isRoute: false },
+    { name: 'Material', id: 'material', isRoute: true },
   ];
 
   return (
@@ -27,7 +49,7 @@ export const Header: React.FC = () => {
         <div className="container mx-auto px-4 h-16 flex items-center justify-between">
           {/* Left: Logo / Name */}
           <button 
-            onClick={() => scrollTo('inicio')}
+            onClick={() => handleNavClick('inicio', false)}
             className="flex flex-col items-center leading-none focus:outline-none"
           >
             <span className="font-heading font-black text-2xl text-primary-dark tracking-tight leading-none">CANELA</span>
@@ -77,8 +99,10 @@ export const Header: React.FC = () => {
               {navLinks.map((link) => (
                 <button 
                   key={link.id}
-                  onClick={() => scrollTo(link.id)}
-                  className="text-3xl font-heading font-bold text-foreground hover:text-primary transition-colors"
+                  onClick={() => handleNavClick(link.id, link.isRoute)}
+                  className={`text-3xl font-heading font-bold transition-colors ${
+                    (link.isRoute && location.pathname === `/${link.id}`) ? 'text-primary' : 'text-foreground hover:text-primary'
+                  }`}
                 >
                   {link.name}
                 </button>
