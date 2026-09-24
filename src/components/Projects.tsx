@@ -88,6 +88,20 @@ const projects: Project[] = [
       acao: 'Atendendo ao pedido dos moradores, o vereador Canela fez um apelo ao prefeito e apresentou os requerimentos. Mostrando que uma oposição responsável, pautada no diálogo, colabora com a gestão pública para trazer melhorias reais.',
       resultado: 'Realização de um sonho de mais de 50 anos da comunidade! A obra resolveu de forma definitiva o problema do período chuvoso (quando a água acumulava e tornava o acesso inviável), levando infraestrutura e qualidade de vida para todos.'
     }
+  },
+  {
+    id: 5,
+    tag: 'Infraestrutura Viária',
+    title: 'Melhoria da Ladeira Soares',
+    summary: 'Alargamento da Ladeira Soares em Palmeira do Piauí, permitindo o tráfego seguro de veículos maiores.',
+    image: 'media/outras_obras.png',
+    gallery: [],
+    video: 'media/ladeira_soares.mp4',
+    details: {
+      feito: 'Realização de uma nova estrada mais larga para a Ladeira Soares, substituindo a estrada antiga e estreita que impossibilitava a passagem de caminhões e veículos grandes.',
+      acao: 'Ouvindo as necessidades da população local, o vereador Canela construiu uma forte parceria com o deputado Georgiano Neto para trazer essa obra. Juntos, acompanharam de perto cada etapa, garantindo que o alargamento saísse do papel.',
+      resultado: 'O projeto inicial de alargamento está completo, trazendo mais desenvolvimento e melhorando o acesso e a segurança de quem vive e trabalha na região. Mesmo com essa vitória, Canela mantém o compromisso e continuará cobrando e se esforçando até ver essa ladeira calçada.'
+    }
   }
 ];
 
