@@ -94,7 +94,7 @@ const projects: Project[] = [
     tag: 'Infraestrutura Viária',
     title: 'Melhoria da Ladeira Soares',
     summary: 'Alargamento da Ladeira Soares em Palmeira do Piauí, permitindo o tráfego seguro de veículos maiores.',
-    image: 'media/outras_obras.png',
+    image: 'media/ladeira_soares.png',
     gallery: [],
     video: 'media/ladeira_soares.mp4',
     details: {
