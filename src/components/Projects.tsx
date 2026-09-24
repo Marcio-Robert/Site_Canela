@@ -98,7 +98,7 @@ const projects: Project[] = [
     gallery: [],
     video: 'media/ladeira_soares.mp4',
     details: {
-      feito: 'Realização de uma nova estrada mais larga para a Ladeira Soares, substituindo a estrada antiga e estreita que impossibilitava a passagem de caminhões e veículos grandes.',
+      feito: 'Realização de uma nova estrada mais larga para a Ladeira Soares, criando uma rota alternativa à estrada antiga e estreita que impossibilitava a passagem de caminhões e veículos grandes.',
       acao: 'Ouvindo as necessidades da população local, o vereador Canela construiu uma forte parceria com o deputado Georgiano Neto para trazer essa obra. Juntos, acompanharam de perto cada etapa, garantindo que o alargamento saísse do papel.',
       resultado: 'O projeto inicial de alargamento está completo, trazendo mais desenvolvimento e melhorando o acesso e a segurança de quem vive e trabalha na região. Mesmo com essa vitória, Canela mantém o compromisso e continuará cobrando e se esforçando até ver essa ladeira calçada.'
     }
